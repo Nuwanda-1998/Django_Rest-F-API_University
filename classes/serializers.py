@@ -46,7 +46,7 @@ class ClasshSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassHolding
         fields = ('id', 'stu_enrolled_classes', 'teacher', 'Location', 'field', 'is_class_active', 'is_class_online', 'classh_id',)
-        read_only_fields = ('id', 'stu_enrolled_classes', 'teacher',)
+        read_only_fields = ('id', 'teacher',)
 
 
 class UserSerializer(serializers.ModelSerializer):

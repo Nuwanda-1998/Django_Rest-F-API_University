@@ -71,13 +71,18 @@ class classViewset(viewsets.ModelViewSet):
     'The ViewSet For the classes list and classes Detail'
     queryset = ClassHolding.objects.all()
     serializer_class = serializers.ClasshSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
 
     def get_queryset(self):
         'Return Object For the current authenticated user'
         user = self.request.user
-        return self.queryset.filter(teacher=user).order_by('-classh_id')
+        if user.is_teacher:
+            return self.queryset.filter(teacher=user).order_by('-classh_id')
+        else:
+            #return self.queryset.filter(stu_enrolled_classes=user).order_by('-classh_id')
+            return self.queryset.order_by('-classh_id')
+        
 
 
     def perform_create(self, serializer):
@@ -86,7 +91,14 @@ class classViewset(viewsets.ModelViewSet):
         if user.is_teacher:
             serializer.save(teacher=user)
         else:
-            raise ValidationError("The user is not Teacher, So Access Denied!")
+            raise ValidationError("User Is not Teacher, So the acces is denied to create new class.")
+
+
+    def perform_update(self, serializer):
+        # Save with the new value for the target model fields
+        user = self.request.user
+        userid = str(user.id)
+        serializer.save(stu_enrolled_classes=userid)
         
 
 
@@ -96,6 +108,7 @@ class classViewset(viewsets.ModelViewSet):
             return serializers.ClasshDetailSerializer
         
         return self.serializer_class
+
 
 
 
