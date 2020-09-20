@@ -1,0 +1,2070 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/authentication/edit/:
+    get:
+      operationId: RetrieveUser
+      description: Manage The Authennticated User
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  name:
+                    type: string
+                    maxLength: 30
+                required:
+                - email
+                - name
+          description: ''
+    put:
+      operationId: UpdateUser
+      description: Manage The Authennticated User
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id001
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                password:
+                  type: string
+                  writeOnly: true
+                  maxLength: 128
+                  minLength: 5
+                name:
+                  type: string
+                  maxLength: 30
+              required:
+              - email
+              - password
+              - name
+          application/x-www-form-urlencoded:
+            schema: *id001
+          multipart/form-data:
+            schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  name:
+                    type: string
+                    maxLength: 30
+                required:
+                - email
+                - name
+          description: ''
+    patch:
+      operationId: PartialUpdateUser
+      description: Manage The Authennticated User
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id002
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                password:
+                  type: string
+                  writeOnly: true
+                  maxLength: 128
+                  minLength: 5
+                name:
+                  type: string
+                  maxLength: 30
+          application/x-www-form-urlencoded:
+            schema: *id002
+          multipart/form-data:
+            schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  name:
+                    type: string
+                    maxLength: 30
+                required:
+                - email
+                - name
+          description: ''
+  /api/v1/view/fields/:
+    get:
+      operationId: listFields
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    name:
+                      type: string
+                      maxLength: 20
+                    Field_id:
+                      type: string
+                      maxLength: 4
+                    topics:
+                      type: array
+                      items:
+                        type: string
+                      readOnly: true
+                  required:
+                  - name
+                  - Field_id
+          description: ''
+    post:
+      operationId: createFields
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id003
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Field_id:
+                  type: string
+                  maxLength: 4
+              required:
+              - name
+              - Field_id
+          application/x-www-form-urlencoded:
+            schema: *id003
+          multipart/form-data:
+            schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Field_id:
+                    type: string
+                    maxLength: 4
+                  topics:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - name
+                - Field_id
+          description: ''
+  /api/v1/view/fields/{id}/:
+    get:
+      operationId: retrieveFields
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Field.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Field_id:
+                    type: string
+                    maxLength: 4
+                  topics:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        name:
+                          type: string
+                          maxLength: 20
+                        Topic_id:
+                          type: string
+                          maxLength: 4
+                        topic:
+                          type: integer
+                      required:
+                      - name
+                      - Topic_id
+                      - topic
+                    readOnly: true
+                required:
+                - name
+                - Field_id
+          description: ''
+    put:
+      operationId: updateFields
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Field.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id004
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Field_id:
+                  type: string
+                  maxLength: 4
+              required:
+              - name
+              - Field_id
+          application/x-www-form-urlencoded:
+            schema: *id004
+          multipart/form-data:
+            schema: *id004
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Field_id:
+                    type: string
+                    maxLength: 4
+                  topics:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - name
+                - Field_id
+          description: ''
+    patch:
+      operationId: partial_updateFields
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Field.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id005
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Field_id:
+                  type: string
+                  maxLength: 4
+          application/x-www-form-urlencoded:
+            schema: *id005
+          multipart/form-data:
+            schema: *id005
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Field_id:
+                    type: string
+                    maxLength: 4
+                  topics:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - name
+                - Field_id
+          description: ''
+    delete:
+      operationId: destroyFields
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Field.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/view/topics/:
+    get:
+      operationId: listTopics
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    name:
+                      type: string
+                      maxLength: 20
+                    Topic_id:
+                      type: string
+                      maxLength: 4
+                    topic:
+                      type: integer
+                  required:
+                  - name
+                  - Topic_id
+                  - topic
+          description: ''
+    post:
+      operationId: createTopics
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id006
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Topic_id:
+                  type: string
+                  maxLength: 4
+                topic:
+                  type: integer
+              required:
+              - name
+              - Topic_id
+              - topic
+          application/x-www-form-urlencoded:
+            schema: *id006
+          multipart/form-data:
+            schema: *id006
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Topic_id:
+                    type: string
+                    maxLength: 4
+                  topic:
+                    type: integer
+                required:
+                - name
+                - Topic_id
+                - topic
+          description: ''
+  /api/v1/view/topics/{id}/:
+    get:
+      operationId: retrieveTopics
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Topic.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Topic_id:
+                    type: string
+                    maxLength: 4
+                  topic:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 20
+                      Field_id:
+                        type: string
+                        maxLength: 4
+                      topics:
+                        type: array
+                        items:
+                          type: string
+                        readOnly: true
+                    required:
+                    - name
+                    - Field_id
+                    type: object
+                    readOnly: true
+                required:
+                - name
+                - Topic_id
+          description: ''
+    put:
+      operationId: updateTopics
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Topic.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id007
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Topic_id:
+                  type: string
+                  maxLength: 4
+                topic:
+                  type: integer
+              required:
+              - name
+              - Topic_id
+              - topic
+          application/x-www-form-urlencoded:
+            schema: *id007
+          multipart/form-data:
+            schema: *id007
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Topic_id:
+                    type: string
+                    maxLength: 4
+                  topic:
+                    type: integer
+                required:
+                - name
+                - Topic_id
+                - topic
+          description: ''
+    patch:
+      operationId: partial_updateTopics
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Topic.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id008
+              properties:
+                name:
+                  type: string
+                  maxLength: 20
+                Topic_id:
+                  type: string
+                  maxLength: 4
+                topic:
+                  type: integer
+          application/x-www-form-urlencoded:
+            schema: *id008
+          multipart/form-data:
+            schema: *id008
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 20
+                  Topic_id:
+                    type: string
+                    maxLength: 4
+                  topic:
+                    type: integer
+                required:
+                - name
+                - Topic_id
+                - topic
+          description: ''
+    delete:
+      operationId: destroyTopics
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Topic.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/view/locations/:
+    get:
+      operationId: listPhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    class_Location_id:
+                      type: string
+                      maxLength: 5
+                    is_smart_class:
+                      type: boolean
+                    capacity:
+                      type: string
+                      readOnly: true
+                    classes:
+                      type: array
+                      items:
+                        type: string
+                      readOnly: true
+                  required:
+                  - class_Location_id
+          description: ''
+    post:
+      operationId: createPhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id009
+              properties:
+                class_Location_id:
+                  type: string
+                  maxLength: 5
+                is_smart_class:
+                  type: boolean
+              required:
+              - class_Location_id
+          application/x-www-form-urlencoded:
+            schema: *id009
+          multipart/form-data:
+            schema: *id009
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  class_Location_id:
+                    type: string
+                    maxLength: 5
+                  is_smart_class:
+                    type: boolean
+                  capacity:
+                    type: string
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - class_Location_id
+          description: ''
+  /api/v1/view/locations/{id}/:
+    get:
+      operationId: retrievePhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Location.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  class_Location_id:
+                    type: string
+                    maxLength: 5
+                  is_smart_class:
+                    type: boolean
+                  capacity:
+                    type: string
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        stu_enrolled_classes:
+                          type: array
+                          items:
+                            type: string
+                          readOnly: true
+                        teacher:
+                          type: string
+                          readOnly: true
+                        Location:
+                          type: integer
+                        field:
+                          type: integer
+                        is_class_active:
+                          type: boolean
+                        is_class_online:
+                          type: boolean
+                        classh_id:
+                          type: string
+                          maxLength: 6
+                      required:
+                      - Location
+                      - field
+                      - classh_id
+                    readOnly: true
+                required:
+                - class_Location_id
+          description: ''
+    put:
+      operationId: updatePhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Location.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id010
+              properties:
+                class_Location_id:
+                  type: string
+                  maxLength: 5
+                is_smart_class:
+                  type: boolean
+              required:
+              - class_Location_id
+          application/x-www-form-urlencoded:
+            schema: *id010
+          multipart/form-data:
+            schema: *id010
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  class_Location_id:
+                    type: string
+                    maxLength: 5
+                  is_smart_class:
+                    type: boolean
+                  capacity:
+                    type: string
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - class_Location_id
+          description: ''
+    patch:
+      operationId: partial_updatePhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Location.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id011
+              properties:
+                class_Location_id:
+                  type: string
+                  maxLength: 5
+                is_smart_class:
+                  type: boolean
+          application/x-www-form-urlencoded:
+            schema: *id011
+          multipart/form-data:
+            schema: *id011
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  class_Location_id:
+                    type: string
+                    maxLength: 5
+                  is_smart_class:
+                    type: boolean
+                  capacity:
+                    type: string
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                required:
+                - class_Location_id
+          description: ''
+    delete:
+      operationId: destroyPhysicalClass
+      description: The ViewSet For the fields list and field detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Location.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/view/classes/:
+    get:
+      operationId: listClassHoldings
+      description: The ViewSet For the classes list and classes Detail
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    stu_enrolled_classes:
+                      type: array
+                      items:
+                        type: string
+                      readOnly: true
+                    teacher:
+                      type: string
+                      readOnly: true
+                    Location:
+                      type: integer
+                    field:
+                      type: integer
+                    is_class_active:
+                      type: boolean
+                    is_class_online:
+                      type: boolean
+                    classh_id:
+                      type: string
+                      maxLength: 6
+                  required:
+                  - Location
+                  - field
+                  - classh_id
+          description: ''
+    post:
+      operationId: createClassHolding
+      description: The ViewSet For the classes list and classes Detail
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id012
+              properties:
+                Location:
+                  type: integer
+                field:
+                  type: integer
+                is_class_active:
+                  type: boolean
+                is_class_online:
+                  type: boolean
+                classh_id:
+                  type: string
+                  maxLength: 6
+              required:
+              - Location
+              - field
+              - classh_id
+          application/x-www-form-urlencoded:
+            schema: *id012
+          multipart/form-data:
+            schema: *id012
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  stu_enrolled_classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  teacher:
+                    type: string
+                    readOnly: true
+                  Location:
+                    type: integer
+                  field:
+                    type: integer
+                  is_class_active:
+                    type: boolean
+                  is_class_online:
+                    type: boolean
+                  classh_id:
+                    type: string
+                    maxLength: 6
+                required:
+                - Location
+                - field
+                - classh_id
+          description: ''
+  /api/v1/view/classes/{id}/:
+    get:
+      operationId: retrieveClassHolding
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Class.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  stu_enrolled_classes:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        name:
+                          type: string
+                          readOnly: true
+                        email:
+                          type: string
+                          format: email
+                          readOnly: true
+                        National_id:
+                          type: string
+                          readOnly: true
+                    readOnly: true
+                  teacher:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 30
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 255
+                      National_id:
+                        type: string
+                        maxLength: 10
+                      is_active:
+                        type: boolean
+                      stu_id:
+                        type: string
+                        nullable: true
+                        maxLength: 10
+                      prof_id:
+                        type: string
+                        nullable: true
+                        maxLength: 10
+                      choosed_topics:
+                        type: integer
+                        nullable: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      updated_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_teacher:
+                        type: boolean
+                        readOnly: true
+                      classes:
+                        type: array
+                        items:
+                          type: integer
+                      enrolled_classes:
+                        type: array
+                        items:
+                          type: integer
+                    required:
+                    - name
+                    - email
+                    - National_id
+                    - classes
+                    - enrolled_classes
+                    type: object
+                    readOnly: true
+                  Location:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      class_Location_id:
+                        type: string
+                        maxLength: 5
+                      is_smart_class:
+                        type: boolean
+                      capacity:
+                        type: string
+                        readOnly: true
+                      classes:
+                        type: array
+                        items:
+                          type: string
+                        readOnly: true
+                    required:
+                    - class_Location_id
+                    type: object
+                    readOnly: true
+                  field:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 20
+                      Field_id:
+                        type: string
+                        maxLength: 4
+                      topics:
+                        type: array
+                        items:
+                          type: string
+                        readOnly: true
+                    required:
+                    - name
+                    - Field_id
+                    type: object
+                    readOnly: true
+                  is_class_active:
+                    type: boolean
+                  is_class_online:
+                    type: boolean
+                  classh_id:
+                    type: string
+                    maxLength: 6
+                required:
+                - classh_id
+          description: ''
+    put:
+      operationId: updateClassHolding
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Class.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id013
+              properties:
+                Location:
+                  type: integer
+                field:
+                  type: integer
+                is_class_active:
+                  type: boolean
+                is_class_online:
+                  type: boolean
+                classh_id:
+                  type: string
+                  maxLength: 6
+              required:
+              - Location
+              - field
+              - classh_id
+          application/x-www-form-urlencoded:
+            schema: *id013
+          multipart/form-data:
+            schema: *id013
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  stu_enrolled_classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  teacher:
+                    type: string
+                    readOnly: true
+                  Location:
+                    type: integer
+                  field:
+                    type: integer
+                  is_class_active:
+                    type: boolean
+                  is_class_online:
+                    type: boolean
+                  classh_id:
+                    type: string
+                    maxLength: 6
+                required:
+                - Location
+                - field
+                - classh_id
+          description: ''
+    patch:
+      operationId: partial_updateClassHolding
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Class.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id014
+              properties:
+                Location:
+                  type: integer
+                field:
+                  type: integer
+                is_class_active:
+                  type: boolean
+                is_class_online:
+                  type: boolean
+                classh_id:
+                  type: string
+                  maxLength: 6
+          application/x-www-form-urlencoded:
+            schema: *id014
+          multipart/form-data:
+            schema: *id014
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  stu_enrolled_classes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  teacher:
+                    type: string
+                    readOnly: true
+                  Location:
+                    type: integer
+                  field:
+                    type: integer
+                  is_class_active:
+                    type: boolean
+                  is_class_online:
+                    type: boolean
+                  classh_id:
+                    type: string
+                    maxLength: 6
+                required:
+                - Location
+                - field
+                - classh_id
+          description: ''
+    delete:
+      operationId: destroyClassHolding
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this Class.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/view/users/:
+    get:
+      operationId: listUsers
+      description: The ViewSet For the classes list and classes Detail
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    name:
+                      type: string
+                      maxLength: 30
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 255
+                    National_id:
+                      type: string
+                      maxLength: 10
+                    is_active:
+                      type: boolean
+                    stu_id:
+                      type: string
+                      nullable: true
+                      maxLength: 10
+                    prof_id:
+                      type: string
+                      nullable: true
+                      maxLength: 10
+                    choosed_topics:
+                      type: integer
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    updated_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    is_teacher:
+                      type: boolean
+                      readOnly: true
+                    classes:
+                      type: array
+                      items:
+                        type: integer
+                    enrolled_classes:
+                      type: array
+                      items:
+                        type: integer
+                  required:
+                  - name
+                  - email
+                  - National_id
+                  - classes
+                  - enrolled_classes
+          description: ''
+    post:
+      operationId: createUser
+      description: The ViewSet For the classes list and classes Detail
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id015
+              properties:
+                name:
+                  type: string
+                  maxLength: 30
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                National_id:
+                  type: string
+                  maxLength: 10
+                is_active:
+                  type: boolean
+                stu_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                prof_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                choosed_topics:
+                  type: integer
+                  nullable: true
+                classes:
+                  type: array
+                  items:
+                    type: integer
+                enrolled_classes:
+                  type: array
+                  items:
+                    type: integer
+              required:
+              - name
+              - email
+              - National_id
+              - classes
+              - enrolled_classes
+          application/x-www-form-urlencoded:
+            schema: *id015
+          multipart/form-data:
+            schema: *id015
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 30
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  National_id:
+                    type: string
+                    maxLength: 10
+                  is_active:
+                    type: boolean
+                  stu_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  prof_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  choosed_topics:
+                    type: integer
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  is_teacher:
+                    type: boolean
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: integer
+                  enrolled_classes:
+                    type: array
+                    items:
+                      type: integer
+                required:
+                - name
+                - email
+                - National_id
+                - classes
+                - enrolled_classes
+          description: ''
+  /api/v1/view/users/{id}/:
+    get:
+      operationId: retrieveUser
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 30
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  National_id:
+                    type: string
+                    maxLength: 10
+                  is_active:
+                    type: boolean
+                  stu_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  prof_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  choosed_topics:
+                    properties:
+                      id:
+                        type: integer
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 20
+                      Field_id:
+                        type: string
+                        maxLength: 4
+                      topics:
+                        type: array
+                        items:
+                          type: string
+                        readOnly: true
+                    required:
+                    - name
+                    - Field_id
+                    type: object
+                    readOnly: true
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  is_teacher:
+                    type: boolean
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        stu_enrolled_classes:
+                          type: array
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                                readOnly: true
+                              name:
+                                type: string
+                                readOnly: true
+                              email:
+                                type: string
+                                format: email
+                                readOnly: true
+                              National_id:
+                                type: string
+                                readOnly: true
+                          readOnly: true
+                        teacher:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 30
+                            email:
+                              type: string
+                              format: email
+                              maxLength: 255
+                            National_id:
+                              type: string
+                              maxLength: 10
+                            is_active:
+                              type: boolean
+                            stu_id:
+                              type: string
+                              nullable: true
+                              maxLength: 10
+                            prof_id:
+                              type: string
+                              nullable: true
+                              maxLength: 10
+                            choosed_topics:
+                              type: integer
+                              nullable: true
+                            created_at:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            updated_at:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            is_teacher:
+                              type: boolean
+                              readOnly: true
+                            classes:
+                              type: array
+                              items:
+                                type: integer
+                            enrolled_classes:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                          - email
+                          - National_id
+                          - classes
+                          - enrolled_classes
+                          type: object
+                          readOnly: true
+                        Location:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            class_Location_id:
+                              type: string
+                              maxLength: 5
+                            is_smart_class:
+                              type: boolean
+                            capacity:
+                              type: string
+                              readOnly: true
+                            classes:
+                              type: array
+                              items:
+                                type: string
+                              readOnly: true
+                          required:
+                          - class_Location_id
+                          type: object
+                          readOnly: true
+                        field:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 20
+                            Field_id:
+                              type: string
+                              maxLength: 4
+                            topics:
+                              type: array
+                              items:
+                                type: string
+                              readOnly: true
+                          required:
+                          - name
+                          - Field_id
+                          type: object
+                          readOnly: true
+                        is_class_active:
+                          type: boolean
+                        is_class_online:
+                          type: boolean
+                        classh_id:
+                          type: string
+                          maxLength: 6
+                      required:
+                      - classh_id
+                    readOnly: true
+                  enrolled_classes:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        stu_enrolled_classes:
+                          type: array
+                          items:
+                            properties:
+                              id:
+                                type: integer
+                                readOnly: true
+                              name:
+                                type: string
+                                readOnly: true
+                              email:
+                                type: string
+                                format: email
+                                readOnly: true
+                              National_id:
+                                type: string
+                                readOnly: true
+                          readOnly: true
+                        teacher:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 30
+                            email:
+                              type: string
+                              format: email
+                              maxLength: 255
+                            National_id:
+                              type: string
+                              maxLength: 10
+                            is_active:
+                              type: boolean
+                            stu_id:
+                              type: string
+                              nullable: true
+                              maxLength: 10
+                            prof_id:
+                              type: string
+                              nullable: true
+                              maxLength: 10
+                            choosed_topics:
+                              type: integer
+                              nullable: true
+                            created_at:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            updated_at:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            is_teacher:
+                              type: boolean
+                              readOnly: true
+                            classes:
+                              type: array
+                              items:
+                                type: integer
+                            enrolled_classes:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                          - email
+                          - National_id
+                          - classes
+                          - enrolled_classes
+                          type: object
+                          readOnly: true
+                        Location:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            class_Location_id:
+                              type: string
+                              maxLength: 5
+                            is_smart_class:
+                              type: boolean
+                            capacity:
+                              type: string
+                              readOnly: true
+                            classes:
+                              type: array
+                              items:
+                                type: string
+                              readOnly: true
+                          required:
+                          - class_Location_id
+                          type: object
+                          readOnly: true
+                        field:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 20
+                            Field_id:
+                              type: string
+                              maxLength: 4
+                            topics:
+                              type: array
+                              items:
+                                type: string
+                              readOnly: true
+                          required:
+                          - name
+                          - Field_id
+                          type: object
+                          readOnly: true
+                        is_class_active:
+                          type: boolean
+                        is_class_online:
+                          type: boolean
+                        classh_id:
+                          type: string
+                          maxLength: 6
+                      required:
+                      - classh_id
+                    readOnly: true
+                required:
+                - name
+                - email
+                - National_id
+          description: ''
+    put:
+      operationId: updateUser
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id016
+              properties:
+                name:
+                  type: string
+                  maxLength: 30
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                National_id:
+                  type: string
+                  maxLength: 10
+                is_active:
+                  type: boolean
+                stu_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                prof_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                choosed_topics:
+                  type: integer
+                  nullable: true
+                classes:
+                  type: array
+                  items:
+                    type: integer
+                enrolled_classes:
+                  type: array
+                  items:
+                    type: integer
+              required:
+              - name
+              - email
+              - National_id
+              - classes
+              - enrolled_classes
+          application/x-www-form-urlencoded:
+            schema: *id016
+          multipart/form-data:
+            schema: *id016
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 30
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  National_id:
+                    type: string
+                    maxLength: 10
+                  is_active:
+                    type: boolean
+                  stu_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  prof_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  choosed_topics:
+                    type: integer
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  is_teacher:
+                    type: boolean
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: integer
+                  enrolled_classes:
+                    type: array
+                    items:
+                      type: integer
+                required:
+                - name
+                - email
+                - National_id
+                - classes
+                - enrolled_classes
+          description: ''
+    patch:
+      operationId: partial_updateUser
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id017
+              properties:
+                name:
+                  type: string
+                  maxLength: 30
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                National_id:
+                  type: string
+                  maxLength: 10
+                is_active:
+                  type: boolean
+                stu_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                prof_id:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                choosed_topics:
+                  type: integer
+                  nullable: true
+                classes:
+                  type: array
+                  items:
+                    type: integer
+                enrolled_classes:
+                  type: array
+                  items:
+                    type: integer
+          application/x-www-form-urlencoded:
+            schema: *id017
+          multipart/form-data:
+            schema: *id017
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 30
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  National_id:
+                    type: string
+                    maxLength: 10
+                  is_active:
+                    type: boolean
+                  stu_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  prof_id:
+                    type: string
+                    nullable: true
+                    maxLength: 10
+                  choosed_topics:
+                    type: integer
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  is_teacher:
+                    type: boolean
+                    readOnly: true
+                  classes:
+                    type: array
+                    items:
+                      type: integer
+                  enrolled_classes:
+                    type: array
+                    items:
+                      type: integer
+                required:
+                - name
+                - email
+                - National_id
+                - classes
+                - enrolled_classes
+          description: ''
+    delete:
+      operationId: destroyUser
+      description: The ViewSet For the classes list and classes Detail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/authentication/token/:
+    post:
+      operationId: CreateTokenObtainPair
+      description: 'Takes a set of user credentials and returns an access and refresh
+        JSON web
+
+        token pair to prove the authentication of those credentials.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id018
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                  writeOnly: true
+              required:
+              - email
+              - password
+          application/x-www-form-urlencoded:
+            schema: *id018
+          multipart/form-data:
+            schema: *id018
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                required:
+                - email
+          description: ''
+  /api/v1/authentication/token/refresh/:
+    post:
+      operationId: CreateTokenRefresh
+      description: 'Takes a refresh type JSON web token and returns an access type
+        JSON web
+
+        token if the refresh token is valid.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id019
+              properties:
+                refresh:
+                  type: string
+              required:
+              - refresh
+          application/x-www-form-urlencoded:
+            schema: *id019
+          multipart/form-data:
+            schema: *id019
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  refresh:
+                    type: string
+                required:
+                - refresh
+          description: ''
+  /api/v1/authentication/register/:
+    post:
+      operationId: Createregistration
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
